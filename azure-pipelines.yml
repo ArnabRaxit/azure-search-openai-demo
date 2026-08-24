@@ -7,7 +7,7 @@ pool:
 steps:
 # Step 1: Install AZD directly into the runner environment without using any Marketplace tasks
 - task: setup-azd@0
-    displayName: Install azd
+  displayName: Install azd
 
 # Step 2: Use the Azure CLI Task to deploy. 
 # This automatically handles login so you don't need 'azd auth login' or credentials!

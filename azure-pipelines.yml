@@ -8,7 +8,7 @@ steps:
 - task: AzureCLI@2
   displayName: 'Install AZD and Deploy AI App'
   inputs:
-    azureSubscription: 'Your-Azure-Service-Connection-Name'
+    azureSubscription: 'kindy-azure-ARM'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |

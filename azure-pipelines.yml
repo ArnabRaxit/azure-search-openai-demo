@@ -33,8 +33,8 @@ steps:
       # 2. Map pipeline variables directly into your azd workspace configuration
       azd env set AZURE_SUBSCRIPTION_ID "9d3525cb-61bb-4699-a3a3-41cd190bc3d9"
       azd env set AZURE_LOCATION "australiasoutheast"
-      azd env set infra.parameters.openAiLocation "australiaeast"
-      azd env set infra.parameters.documentIntelligenceResourceGroupLocation "australiaeast"
+      azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION "australiaeast"
+      azd env set AZURE_OPENAI_LOCATION "australiaeast"
       
       # 3. Provision the Azure resources and deploy the code
       azd up --no-prompt

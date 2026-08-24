@@ -36,7 +36,7 @@ steps:
       
       # 3. Provision the Azure resources and deploy the code
       azd up --no-prompt
-    env:
-      AZURE_DOCUMENTINTELLIGENCE_LOCATION: "australiaeast"
-      AZURE_OPENAI_LOCATION: "australiaeast"
+  env:
+    AZURE_DOCUMENTINTELLIGENCE_LOCATION: "australiaeast"
+    AZURE_OPENAI_LOCATION: "australiaeast"
 

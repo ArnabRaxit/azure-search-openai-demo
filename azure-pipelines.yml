@@ -5,25 +5,33 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+# Step 1: Install the Azure Developer CLI using Microsoft's standalone installer step
+- task: UseAzureDeveloperCLI@0
+  displayName: 'Install Azure Developer CLI (azd)'
+  inputs:
+    version: 'latest'
+
+# Step 2: Use the Azure CLI Task to deploy. 
+# This automatically handles login so you don't need 'azd auth login' or credentials!
 - task: AzureCLI@2
-  displayName: 'Install AZD and Deploy AI App'
+  displayName: 'Configure and Deploy AI App via AZD'
   inputs:
     azureSubscription: 'kindy-azure-ARM'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      # 1. Install the Azure Developer CLI on the agent
-      curl -fsSL https://aka.ms | bash
+      # Inform azd to use the Azure CLI auth context managed by this DevOps task
+      export AZD_AUTH_USE_AZURE_CLI=true
       
-      # 2. Log in using the pipeline's system token
-      azd auth login --client-id $(AZURE_CLIENT_ID) --client-secret $(AZURE_CLIENT_SECRET) --tenant-id $(AZURE_TENANT_ID)
-      
-      # 3. Set your target subscription and region parameters
+      # 1. Initialize your specific environment name
       azd env new kindy
+      
+      # 2. Map pipeline variables directly into your azd workspace configuration
       azd env set AZURE_SUBSCRIPTION_ID "9d3525cb-61bb-4699-a3a3-41cd190bc3d9"
       azd env set AZURE_LOCATION "australiasoutheast"
       azd env set openAiLocation "australiaeast"
       azd env set documentIntelligenceResourceGroupLocation "australiaeast"
       
-      # 4. Provision and deploy
+      # 3. Provision the Azure resources and deploy the code
       azd up --no-prompt
+
